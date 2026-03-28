@@ -9,9 +9,22 @@ proxies = {
         'http': proxy_address,
         'https': proxy_address
         }
+
+total = 0
+
+urls = list()
+
+with open('urls.txt', 'r', encoding='utf-8') as file:
+    for line in file:
+        urls.append(line)
+
 try:
-    free = requests.get('https://ya.ru/', proxies=proxies, verify=False, timeout=10)
-    print(free)
+    for url in urls:
+        free = requests.get(url, proxies=proxies, verify=False, timeout=10)
+        elapsed = r.elapsed.total_seconds()
+        total += elapsed
+
+    print(f'Answer: {free} | Average time: {total // len(urls)}')
 except requests.exceptions.Timeout:
     print('Timeout occurred')
 except requests.exceptions.ConnectionError:
