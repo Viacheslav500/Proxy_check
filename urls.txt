@@ -3,3 +3,6 @@ https://www.google.com
 https://www.youtube.com
 https://www.instagram.com
 https://www.facebook.com
+https://t.me
+https://web.telegram.org
+https://telegram.org

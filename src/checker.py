@@ -42,7 +42,7 @@ for url in urls:
         except:
             continue
 
-if success_count > 1:
+if success_count / len(urls) > 0.5:
     print(f'Proxy: {proxy_address} | Average time: {total / success_count}')
 else:
     print('Invalid proxy')
