@@ -1,6 +1,7 @@
 import requests
 import urllib3
 import http.client
+import time
 
 urllib3.disable_warnings()
 
@@ -16,27 +17,43 @@ proxies = {
 total = 0
 success_count = 0
 
+#create 'max_retries' to make sure proxy is invalid
+#create 'time_delay' to start checking after specified time
+max_retries = 3
+time_delay = 2
+
 urls = list()
 
 with open('urls.txt', 'r', encoding='utf-8') as file:
     for line in file:
         urls.append(line.strip())
 
-try:
-    for url in urls:
-        valid_proxy = requests.get(url, proxies=proxies, verify=False, timeout=10)
-        elapsed = valid_proxy.elapsed.total_seconds()
-        total += elapsed
-        success_count += 1
-    if success_count > 1:
-        print(f'Proxy: {proxy_address} | Answer: {valid_proxy} | Average time: {total // success_count}')
-except requests.exceptions.Timeout:
-    print('Timeout occurred')
-except requests.exceptions.ConnectionError:
-    print('Connection Error occurred')
-except requests.exceptions.SSLError:
-    print('SSLError occurred')
-except http.client.RemoteDisconnected:
-    print('Proxy is unavailable')
-except urllib3.exceptions.ProtocolError:
-    print('Protocol Error occurred')
+for url in urls:
+    for attempt in range(max_retries):
+        try:
+            valid_proxy = requests.get(url, proxies=proxies, verify=False, timeout=10)
+            if valid_proxy.status_code == requests.codes.ok:
+                elapsed = valid_proxy.elapsed.total_seconds()
+                total += elapsed
+                success_count += 1
+                break
+            else:
+                time.sleep(time_delay)
+        except:
+            continue
+
+if success_count > 1:
+    print(f'Proxy: {proxy_address} | Average time: {total / success_count}')
+else:
+    print('Invalid proxy')
+
+#except requests.exceptions.Timeout:
+#    print('Timeout occurred')
+#except requests.exceptions.ConnectionError:
+#   print('Connection Error occurred')
+#except requests.exceptions.SSLError:
+#    print('SSLError occurred')
+#except http.client.RemoteDisconnected:
+#    print('Proxy is unavailable')
+#except urllib3.exceptions.ProtocolError:
+#    print('Protocol Error occurred')
