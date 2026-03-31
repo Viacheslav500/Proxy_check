@@ -1,6 +1,12 @@
+import os
 from src.checker.check_single_proxy import check_single_proxy
 
 def to_check_a_file(path_to_file):
+    if os.path.exists(path_to_file):
+        continue
+    else:
+        print('The file does not exist or entered incorrect file path')
+
     with open(path_to_file, 'r', encoding='utf-8') as file:
         lines = file.readlines()
 
