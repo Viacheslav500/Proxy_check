@@ -8,10 +8,11 @@ def to_check_a_file(path_to_file):
     invalid = {'Invalid proxy', 'Timeout occurred', 'Connection Error occurred'}
 
     for line in lines:
-        if check_single_proxy(line.strip()) in invalid:
+        valid = check_single_proxy(line.strip())
+        if valid in invalid:
             continue
         else:
-            result.append(check_single_proxy(line.strip()))
+            result.append(valid)
 
     with open(path_to_file, 'w', encoding='utf-8') as file:
         for res in result:
