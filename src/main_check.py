@@ -14,6 +14,8 @@ def main():
     elif args.file:
         to_check_a_file(args.file)
         print('File was checked')
+    else:
+        print('Use --proxy or --file to start the script')
 
 if __name__ == '__main__':
     main()
