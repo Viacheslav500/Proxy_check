@@ -10,11 +10,11 @@ def main():
     args = parser.parse_args()
 
     if args.proxy:
-        print(check_single_proxy(args.proxy)
+        print(check_single_proxy(args.proxy))
     elif args.file:
         to_check_a_file(args.file)
         print('File was checked')
 
-if __name__ == 'main':
+if __name__ == '__main__':
     main()
         
