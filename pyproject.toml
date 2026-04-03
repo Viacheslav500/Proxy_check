@@ -1,7 +1,7 @@
 [project]
 name = "proxy-check"
 version = "0.1.0"
-description = "Add your description here"
+description = "Simple script to check a single proxy or a file with list of proxies"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
@@ -9,7 +9,7 @@ dependencies = [
 ]
 
 [project.scripts]
-proxycheck = "src.scripts.main_check:main"
+proxycheck = "src.main_check:main"
 
 [build-system]
 requires = ["hatchling"]
