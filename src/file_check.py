@@ -1,5 +1,5 @@
 import os
-from src.checker.check_single_proxy import check_single_proxy
+from .checker import check_single_proxy
 
 def to_check_a_file(path_to_file):
     if not os.path.exists(path_to_file):

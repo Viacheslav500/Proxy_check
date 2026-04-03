@@ -1,6 +1,6 @@
 import argparse
-from src.checker.check_single_proxy import check_single_proxy
-from src.checker.file_check import to_check_a_file
+from .checker import check_single_proxy
+from .file_check import to_check_a_file
 
 
 def main():
