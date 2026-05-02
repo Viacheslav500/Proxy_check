@@ -52,14 +52,3 @@ def check_single_proxy(proxy_address):
         return f'Proxy: {proxy_address} | Average time: {total / success_count}'
     else:
         return 'Invalid proxy'
-
-#except requests.exceptions.Timeout:
-#    print('Timeout occurred')
-#except requests.exceptions.ConnectionError:
-#   print('Connection Error occurred')
-#except requests.exceptions.SSLError:
-#    print('SSLError occurred')
-#except http.client.RemoteDisconnected:
-#    print('Proxy is unavailable')
-#except urllib3.exceptions.ProtocolError:
-#    print('Protocol Error occurred')

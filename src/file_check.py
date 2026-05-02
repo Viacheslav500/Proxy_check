@@ -1,5 +1,6 @@
 import os
 from .checker import check_single_proxy
+import concurrent.futures
 
 def to_check_a_file(path_to_file):
     if not os.path.exists(path_to_file):
@@ -12,12 +13,13 @@ def to_check_a_file(path_to_file):
     result = list()
     invalid = {'Invalid proxy', 'Timeout occurred', 'Connection Error occurred'}
 
-    for line in lines:
-        valid = check_single_proxy(line.strip())
-        if valid in invalid:
-            continue
-        result.append(valid)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=50) as executor:
+        future_to_proxy = [executor.submit(check_single_proxy) for proxy in lines]
+        for future in as_completed(future_to_proxy):
+            valid = future.result()
+            if valid not in invalid:
+                result.append(valid)
 
     with open(path_to_file, 'w', encoding='utf-8') as file:
         for res in result:
-            file.write(res)
+            file.write(res + '\n')
