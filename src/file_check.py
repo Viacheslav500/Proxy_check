@@ -15,7 +15,7 @@ def to_check_a_file(path_to_file):
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=50) as executor:
         future_to_proxy = [executor.submit(check_single_proxy, proxy) for proxy in lines]
-        for future in as_completed(future_to_proxy):
+        for future in concurrent.futures.as_completed(future_to_proxy):
             valid = future.result()
             if valid not in invalid:
                 result.append(valid)
