@@ -44,9 +44,9 @@ def check_single_proxy(proxy_address):
                 else:
                     time.sleep(time_delay)
             except requests.exceptions.Timeout:
-                return 'Timeout occurred'
+                continue
             except requests.exceptions.ConnectionError:
-                return 'Connection Error occurred'
+                continue
 
     if success_count / len(urls) > 0.5:
         return f'Proxy: {proxy_address} | Average time: {total / success_count}'
